@@ -4,16 +4,12 @@
  */
 package database;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import java.sql.Connection;
 
 /**
  *
@@ -109,5 +105,56 @@ public class ManageOrder {
             JOptionPane.showMessageDialog(null, ex, "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }
+
+    public ResultSet readHistory() {
+        String sql = "SELECT o.order_id, o.order_date, s.name AS stock_name, od.quantity, su.name AS supplier_name FROM orders o JOIN order_detail od ON o.order_id = od.order_id JOIN stock s ON od.part_id = s.part_id JOIN order_supplier os ON o.order_id = os.order_id JOIN supplier su ON os.supplier_id = su.id;";
+        try {
+            ps = con.prepareStatement(sql);
+            resultSet = ps.executeQuery();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e, "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+        return resultSet;
+    }
+
+    public int nextOrderId() {
+        int nextId = 1;
+        String sql = "SELECT MAX(order_id) FROM orders";
+        try {
+            ps = con.prepareStatement(sql);
+            resultSet = ps.executeQuery();
+
+            if (resultSet.next()) {
+                int maxId = resultSet.getInt(1);
+                nextId = maxId + 1;
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e, "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+        return nextId;
+    }
+    
+
+    
+    public String getSupplierName(int supplierID){
+        String name = null;
+        String sql = "SELECT name FROM supplier WHERE id = ?";
+        
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, supplierID);
+            resultSet = ps.executeQuery();
+            if(resultSet.next()){
+                name = resultSet.getString("name");
+            }else{
+                JOptionPane.showMessageDialog(null, "name not found relevent with supplier ID: "+supplierID, "Warning", JOptionPane.WARNING_MESSAGE);
+            }
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e, "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+        return name;
+    }
+
 
 }

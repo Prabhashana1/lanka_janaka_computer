@@ -177,6 +177,7 @@ public class MainFrame extends javax.swing.JFrame {
         lableUserId = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -1341,10 +1342,10 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_lableManageRepairItemMouseClicked
 
     private void lableLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lableLogoutMouseClicked
-        /*LoginFrame loginFrame = new LoginFrame();
+        LoginFrame loginFrame = new LoginFrame();
         this.dispose();
         loginFrame.setVisible(true);
-         */
+         
     }//GEN-LAST:event_lableLogoutMouseClicked
 
     private void lableManageRepairJobMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lableManageRepairJobMouseClicked
@@ -1537,6 +1538,8 @@ public class MainFrame extends javax.swing.JFrame {
 
             if (result == JOptionPane.YES_OPTION) {
                 mailSender.sendMail(customerEmail, "Confirm Your Registration", "Hello: " + customerName + "," + "\n\nThank you for choosing us. You have successfully registered with us. \n\nJANAKA COMPUTERS \n" + (LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))) + "");
+            }else{
+                clearCustomerFields();
             }
         }
     }//GEN-LAST:event_btnAddCustomerActionPerformed

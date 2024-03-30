@@ -7,39 +7,47 @@ package ui;
 import database.ManageOrder;
 import database.ManageStockPart;
 import database.ManageSupplier;
-import java.awt.HeadlessException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.text.MessageFormat;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
+import javax.print.attribute.standard.OrientationRequested;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
-import java.util.List;
+import util.JavaSendEmail;
 
 /**
  *
  * @author prabhashana
  */
 public class OrderPartFrame extends javax.swing.JFrame {
-    
+
     private final database.ManageStockPart stockPart;
     private final database.ManageSupplier manageSupplier;
     private final database.ManageOrder manageOrder;
+    private final util.JavaSendEmail javaSendEmail;
 
     /**
      * Creates new form OrderPartFrame
      */
     public OrderPartFrame() {
+        this.javaSendEmail = new JavaSendEmail();
         this.manageSupplier = new ManageSupplier();
         this.stockPart = new ManageStockPart();
         this.manageOrder = new ManageOrder();
         initComponents();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         loadStockPart();
         loadSupplier();
-        
+        loadOrderHistory();
+        nextOrderId();
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -75,7 +83,7 @@ public class OrderPartFrame extends javax.swing.JFrame {
         txtSearchOrder = new javax.swing.JTextField();
         btnAdd = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel5.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
         jLabel5.setText("Search Part:");
@@ -182,7 +190,7 @@ public class OrderPartFrame extends javax.swing.JFrame {
         jLabel1.setText("Manage Order ");
 
         lableOrderID.setFont(new java.awt.Font("Helvetica Neue", 1, 20)); // NOI18N
-        lableOrderID.setForeground(new java.awt.Color(255, 255, 255));
+        lableOrderID.setForeground(new java.awt.Color(255, 153, 153));
 
         jLabel4.setFont(new java.awt.Font("Helvetica Neue", 1, 20)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -270,6 +278,11 @@ public class OrderPartFrame extends javax.swing.JFrame {
         btnDeletePart.setFont(new java.awt.Font("Helvetica Neue", 1, 15)); // NOI18N
         btnDeletePart.setForeground(new java.awt.Color(255, 0, 51));
         btnDeletePart.setText("Delete Existing Part");
+        btnDeletePart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletePartActionPerformed(evt);
+            }
+        });
 
         btnClearField.setFont(new java.awt.Font("Helvetica Neue", 1, 15)); // NOI18N
         btnClearField.setText("Clear Fileds");
@@ -473,10 +486,10 @@ public class OrderPartFrame extends javax.swing.JFrame {
         int partId = Integer.parseInt(txtOrderPartId.getText());
         lableOrderPartName.setText(manageOrder.getPartName(partId));
     }//GEN-LAST:event_txtOrderPartIdFocusLost
-    
+
 
     private void btnConfirmOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmOrderActionPerformed
-        
+
         int supplierId = Integer.parseInt(txtEnterSupplier.getText());
         DefaultTableModel model = (DefaultTableModel) tableOrder.getModel();
         int rowCount = tableOrder.getRowCount();
@@ -484,19 +497,43 @@ public class OrderPartFrame extends javax.swing.JFrame {
         for (int i = 0; i < rowCount; i++) {
             int partId = Integer.parseInt(tableOrder.getValueAt(i, 0).toString());
             int quantity = Integer.parseInt(tableOrder.getValueAt(i, 2).toString());
-            
+
             manageOrder.addOrderDetail(partId, quantity);
         }
         manageOrder.addOrderSupplier(supplierId);
         model.setRowCount(0);
+        loadOrderHistory();
+        nextOrderId();
 
+        int result = JOptionPane.showConfirmDialog(rootPane, "You want to send order confirmation email to customer?", "Confirmation", JOptionPane.YES_NO_OPTION);
+
+        if (result == JOptionPane.YES_OPTION) {
+            //String name = manageOrder.getSupplierName(supplierId);
+            //saveOrderFile();
+            model.setRowCount(0);
+            loadOrderHistory();
+            nextOrderId();
+        }
+        model.setRowCount(0);
+        loadOrderHistory();
+        nextOrderId();
     }//GEN-LAST:event_btnConfirmOrderActionPerformed
-    
+
+    private void btnDeletePartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletePartActionPerformed
+        int selectedRow = tableOrder.getSelectedRow();
+        DefaultTableModel model = (DefaultTableModel) tableOrder.getModel();
+        if (selectedRow != -1) {
+            model.removeRow(selectedRow);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Please select a row to remove", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnDeletePartActionPerformed
+
     public void loadStockPart() {
         ResultSet resultSet = stockPart.readStockPart();
         DefaultTableModel model = (DefaultTableModel) tableOrderPart.getModel();
         model.setRowCount(0);
-        
+
         try {
             while (resultSet.next()) {
                 int partId = resultSet.getInt("part_id");
@@ -508,12 +545,12 @@ public class OrderPartFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, e, "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }
-    
+
     public void loadSupplier() {
         ResultSet resultSet = manageSupplier.readSupplier();
         DefaultTableModel model = (DefaultTableModel) tableOrderSupplier.getModel();
         model.setRowCount(0);
-        
+
         try {
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
@@ -525,7 +562,26 @@ public class OrderPartFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, e, "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }
-    
+
+    public void loadOrderHistory() {
+        ResultSet resultSet = manageOrder.readHistory();
+        DefaultTableModel model = (DefaultTableModel) tableOrderDetail.getModel();
+        model.setRowCount(0);
+
+        try {
+            while (resultSet.next()) {
+                int id = resultSet.getInt(1);
+                String date = resultSet.getString(2);
+                String email = resultSet.getString(3);
+                int quantity = resultSet.getInt(4);
+                String supName = resultSet.getString(5);
+                model.addRow(new Object[]{id, date, email, quantity, supName});
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(rootPane, e, "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
     private boolean checkField() {
         String supplierId = txtEnterSupplier.getText();
         String partId = txtOrderPartId.getText();
@@ -536,10 +592,27 @@ public class OrderPartFrame extends javax.swing.JFrame {
             return false;
         } else {
             return true;
-            
+
         }
     }
-    
+
+    public void printOrderFile() {
+        MessageFormat header = new MessageFormat("eferfvcrf");
+        MessageFormat footer = new MessageFormat("fcdvjdfvefdvf");
+
+        try {
+            PrintRequestAttributeSet printRequestAttributeSet = new HashPrintRequestAttributeSet();
+            printRequestAttributeSet.add(OrientationRequested.LANDSCAPE);
+            tableOrder.print(JTable.PrintMode.FIT_WIDTH, header, footer);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Order not print", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    private void nextOrderId() {
+        lableOrderID.setText(Integer.toString(manageOrder.nextOrderId()));
+    }
+
     private void clearField() {
         txtEnterSupplier.setText("");
         txtOrderPartId.setText("");

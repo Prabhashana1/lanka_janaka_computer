@@ -7,19 +7,22 @@ package ui;
 import database.ManageOrder;
 import database.ManageStockPart;
 import database.ManageSupplier;
+import java.awt.HeadlessException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import java.util.List;
 
 /**
  *
  * @author prabhashana
  */
 public class OrderPartFrame extends javax.swing.JFrame {
-
+    
     private final database.ManageStockPart stockPart;
     private final database.ManageSupplier manageSupplier;
     private final database.ManageOrder manageOrder;
@@ -34,10 +37,9 @@ public class OrderPartFrame extends javax.swing.JFrame {
         initComponents();
         loadStockPart();
         loadSupplier();
-
+        
     }
-
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -67,7 +69,6 @@ public class OrderPartFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableOrder = new javax.swing.JTable();
         btnConfirmOrder = new javax.swing.JButton();
-        btnUpdateDeletePart = new javax.swing.JButton();
         btnDeletePart = new javax.swing.JButton();
         btnClearField = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
@@ -266,9 +267,6 @@ public class OrderPartFrame extends javax.swing.JFrame {
             }
         });
 
-        btnUpdateDeletePart.setFont(new java.awt.Font("Helvetica Neue", 1, 15)); // NOI18N
-        btnUpdateDeletePart.setText("Update Existing Part");
-
         btnDeletePart.setFont(new java.awt.Font("Helvetica Neue", 1, 15)); // NOI18N
         btnDeletePart.setForeground(new java.awt.Color(255, 0, 51));
         btnDeletePart.setText("Delete Existing Part");
@@ -326,34 +324,30 @@ public class OrderPartFrame extends javax.swing.JFrame {
                         .addGap(1, 1, 1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(2, 2, 2)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtOrderPartId, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(14, 14, 14)
-                                .addComponent(btnConfirmOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGap(24, 24, 24)
+                                .addComponent(txtOrderPartId, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(24, 24, 24)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnConfirmOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lableOrderPartName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel10)
                                 .addGap(12, 12, 12)
-                                .addComponent(txtOrderQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(9, 9, 9))
+                                .addComponent(txtOrderQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnUpdateDeletePart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)
+                                .addGap(11, 11, 11)
                                 .addComponent(btnDeletePart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnClearField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(22, 22, 22)))))
+                                .addComponent(btnClearField, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(9, 9, 9)))
                 .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
@@ -399,7 +393,6 @@ public class OrderPartFrame extends javax.swing.JFrame {
                         .addGap(31, 31, 31)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnConfirmOrder)
-                            .addComponent(btnUpdateDeletePart)
                             .addComponent(btnDeletePart)
                             .addComponent(btnClearField))
                         .addGap(18, 18, 18)
@@ -480,18 +473,30 @@ public class OrderPartFrame extends javax.swing.JFrame {
         int partId = Integer.parseInt(txtOrderPartId.getText());
         lableOrderPartName.setText(manageOrder.getPartName(partId));
     }//GEN-LAST:event_txtOrderPartIdFocusLost
+    
 
     private void btnConfirmOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmOrderActionPerformed
-
         
-
-    }//GEN-LAST:event_btnConfirmOrderActionPerformed
-
-    public void loadStockPart() {
-       ResultSet resultSet = stockPart.readStockPart();
-        DefaultTableModel model = (DefaultTableModel) tableOrderPart.getModel();
+        int supplierId = Integer.parseInt(txtEnterSupplier.getText());
+        DefaultTableModel model = (DefaultTableModel) tableOrder.getModel();
+        int rowCount = tableOrder.getRowCount();
+        manageOrder.confirmOrder();
+        for (int i = 0; i < rowCount; i++) {
+            int partId = Integer.parseInt(tableOrder.getValueAt(i, 0).toString());
+            int quantity = Integer.parseInt(tableOrder.getValueAt(i, 2).toString());
+            
+            manageOrder.addOrderDetail(partId, quantity);
+        }
+        manageOrder.addOrderSupplier(supplierId);
         model.setRowCount(0);
 
+    }//GEN-LAST:event_btnConfirmOrderActionPerformed
+    
+    public void loadStockPart() {
+        ResultSet resultSet = stockPart.readStockPart();
+        DefaultTableModel model = (DefaultTableModel) tableOrderPart.getModel();
+        model.setRowCount(0);
+        
         try {
             while (resultSet.next()) {
                 int partId = resultSet.getInt("part_id");
@@ -503,12 +508,12 @@ public class OrderPartFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, e, "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }
-
+    
     public void loadSupplier() {
         ResultSet resultSet = manageSupplier.readSupplier();
         DefaultTableModel model = (DefaultTableModel) tableOrderSupplier.getModel();
         model.setRowCount(0);
-
+        
         try {
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
@@ -520,7 +525,7 @@ public class OrderPartFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, e, "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }
-
+    
     private boolean checkField() {
         String supplierId = txtEnterSupplier.getText();
         String partId = txtOrderPartId.getText();
@@ -531,17 +536,16 @@ public class OrderPartFrame extends javax.swing.JFrame {
             return false;
         } else {
             return true;
-
+            
         }
     }
-
+    
     private void clearField() {
         txtEnterSupplier.setText("");
         txtOrderPartId.setText("");
         lableOrderPartName.setText("");
         txtOrderQuantity.setText("");
     }
-
 
     /**
      * @param args the command line arguments
@@ -583,7 +587,6 @@ public class OrderPartFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnClearField;
     private javax.swing.JButton btnConfirmOrder;
     private javax.swing.JButton btnDeletePart;
-    private javax.swing.JButton btnUpdateDeletePart;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

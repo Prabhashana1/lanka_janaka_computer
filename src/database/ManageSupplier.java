@@ -9,7 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import ui.OrderPartFrame;
 
 /**
  *
@@ -19,7 +18,7 @@ public class ManageSupplier {
     
     private Connection con = DatabaseConnection.getConnection();
     private PreparedStatement ps = null;
-        private ui.OrderPartFrame orderPartFrame = new OrderPartFrame();
+
     
     
     public void addSupplier(String name, String phoneNo, String email, String address) {

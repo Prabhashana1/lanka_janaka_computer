@@ -8,7 +8,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import ui.OrderPartFrame;
 
 /**
  *
@@ -20,7 +19,7 @@ public class DatabaseConnection {
     private static final String username = "root";
     private static final String password = "";
     private static Connection connection;
-        private ui.OrderPartFrame orderPartFrame = new OrderPartFrame();
+
    
     
     static {

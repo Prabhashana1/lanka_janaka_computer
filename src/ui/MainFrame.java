@@ -1344,7 +1344,7 @@ public class MainFrame extends javax.swing.JFrame {
         /*LoginFrame loginFrame = new LoginFrame();
         this.dispose();
         loginFrame.setVisible(true);
-*/
+         */
     }//GEN-LAST:event_lableLogoutMouseClicked
 
     private void lableManageRepairJobMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lableManageRepairJobMouseClicked
@@ -1855,26 +1855,27 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void btnSupplierDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSupplierDeleteActionPerformed
         String supplierId = lableSupplierId.getText();
-            if (supplierId.isEmpty()) {
-                JOptionPane.showMessageDialog(rootPane, "To delete the supplier data, You must select the supplier ID from the table", "Warning", JOptionPane.WARNING_MESSAGE);
-            } else {
-                int result = JOptionPane.showConfirmDialog(rootPane, "Are you sure you want update?", "Confirmation", JOptionPane.YES_NO_OPTION);
+        if (supplierId.isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "To delete the supplier data, You must select the supplier ID from the table", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            int result = JOptionPane.showConfirmDialog(rootPane, "Are you sure you want update?", "Confirmation", JOptionPane.YES_NO_OPTION);
 
-                if (result == JOptionPane.YES_OPTION) {
-                    int supplierIdInt = Integer.parseInt(supplierId);
-                    manageSupplier.deleteSupplier(supplierIdInt);
-                    loadSupplier();
-                    clearManageSupplierField();
-                }else{
-                    clearManageSupplierField();
-                }
+            if (result == JOptionPane.YES_OPTION) {
+                int supplierIdInt = Integer.parseInt(supplierId);
+                manageSupplier.deleteSupplier(supplierIdInt);
+                loadSupplier();
+                clearManageSupplierField();
+            } else {
+                clearManageSupplierField();
             }
+        }
     }//GEN-LAST:event_btnSupplierDeleteActionPerformed
+
 
     private void btnToOrderPartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToOrderPartActionPerformed
         OrderPartFrame orderPartFrame = new OrderPartFrame();
         orderPartFrame.setVisible(true);
-        
+
     }//GEN-LAST:event_btnToOrderPartActionPerformed
 
     private void btnGRNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGRNActionPerformed

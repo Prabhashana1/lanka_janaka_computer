@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 /**
  *
@@ -80,6 +82,24 @@ public class Customer {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e, "Warning", JOptionPane.WARNING_MESSAGE);
         } 
+    }
+    
+    
+    String email;
+    public String getCustomerEmail(int customerId){
+        String sql = "SELECT email FROM customer WHERE customer_id = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, customerId);
+            ResultSet resultSet = ps.executeQuery();
+            
+            if(resultSet.next()){
+                email = resultSet.getString("email");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex, "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+        return email;
     }
 
 }

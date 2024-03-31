@@ -109,12 +109,22 @@ public class GRNFrame extends javax.swing.JFrame {
 
         txtPrice.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
         txtPrice.setNextFocusableComponent(btnAdd);
+        txtPrice.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPriceKeyTyped(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Helvetica Neue", 1, 15)); // NOI18N
         jLabel7.setText("Quantity:");
 
         txtQuantity.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
         txtQuantity.setNextFocusableComponent(txtPrice);
+        txtQuantity.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtQuantityKeyTyped(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
         jLabel9.setText("Search Here");
@@ -204,6 +214,11 @@ public class GRNFrame extends javax.swing.JFrame {
         txtPartId.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtPartIdFocusLost(evt);
+            }
+        });
+        txtPartId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPartIdKeyTyped(evt);
             }
         });
 
@@ -425,6 +440,27 @@ public class GRNFrame extends javax.swing.JFrame {
         tableGRNHistory.setRowSorter(tableRowSorter);
         tableRowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtSearchGRN.getText().toLowerCase()));
     }//GEN-LAST:event_txtSearchGRNKeyReleased
+
+    private void txtPartIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPartIdKeyTyped
+        char c = evt.getKeyChar();
+        if (Character.isLetter(c) && !evt.isAltDown()) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtPartIdKeyTyped
+
+    private void txtQuantityKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantityKeyTyped
+        char c = evt.getKeyChar();
+        if (Character.isLetter(c) && !evt.isAltDown()) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtQuantityKeyTyped
+
+    private void txtPriceKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPriceKeyTyped
+        char c = evt.getKeyChar();
+        if (Character.isLetter(c) && !evt.isAltDown()) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtPriceKeyTyped
 
     private void nextGrnId() {
         String id = Integer.toString(grn.nextGRNId());

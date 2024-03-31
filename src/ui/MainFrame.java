@@ -5,6 +5,7 @@
 package ui;
 
 import database.Customer;
+import database.ManageJob;
 import database.ManageStockPart;
 import database.ManageSupplier;
 import database.RepairItem;
@@ -41,6 +42,7 @@ public class MainFrame extends javax.swing.JFrame {
     database.ManageSupplier manageSupplier = new ManageSupplier();
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     DecimalFormat df = new DecimalFormat("0.00");
+    database.ManageJob manageJob = new ManageJob();
 
     /**
      * Creates new form MainFrame
@@ -116,6 +118,28 @@ public class MainFrame extends javax.swing.JFrame {
         btnRepairItemFieldsClear = new javax.swing.JButton();
         btnRepairItemDelete = new javax.swing.JButton();
         jPanelManageRepair = new javax.swing.JPanel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
+        lableJobId = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
+        txtRepairIJobCustomerID = new javax.swing.JTextField();
+        jLabel38 = new javax.swing.JLabel();
+        txtRepairJobRepairItemId = new javax.swing.JTextField();
+        jLabel39 = new javax.swing.JLabel();
+        dateScheduleDate = new com.toedter.calendar.JDateChooser();
+        comboSetTatus = new javax.swing.JComboBox<>();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        txtAreaDescription = new javax.swing.JTextArea();
+        jLabel40 = new javax.swing.JLabel();
+        jLabel41 = new javax.swing.JLabel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        tableJob = new javax.swing.JTable();
+        jLabel42 = new javax.swing.JLabel();
+        txtSearchJob = new javax.swing.JTextField();
+        btnAddJob = new javax.swing.JButton();
+        btnEditJob = new javax.swing.JButton();
+        btnDeleteJob = new javax.swing.JButton();
+        btnJobFieldClear = new javax.swing.JButton();
         jPanelInvoice = new javax.swing.JPanel();
         jPanelStock = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
@@ -386,6 +410,11 @@ public class MainFrame extends javax.swing.JFrame {
         txtCustomerName.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
 
         txtCustomerPhoneNo.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        txtCustomerPhoneNo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCustomerPhoneNoKeyTyped(evt);
+            }
+        });
 
         lableCustomerId.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
 
@@ -553,6 +582,11 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel20.setText("Customer ID:");
 
         txtRepairItemCustomerId.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        txtRepairItemCustomerId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtRepairItemCustomerIdKeyTyped(evt);
+            }
+        });
 
         txtRepairItemSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -700,16 +734,157 @@ public class MainFrame extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("tab2", jPanelManageRepairItem);
 
-        javax.swing.GroupLayout jPanelManageRepairLayout = new javax.swing.GroupLayout(jPanelManageRepair);
-        jPanelManageRepair.setLayout(jPanelManageRepairLayout);
-        jPanelManageRepairLayout.setHorizontalGroup(
-            jPanelManageRepairLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 840, Short.MAX_VALUE)
-        );
-        jPanelManageRepairLayout.setVerticalGroup(
-            jPanelManageRepairLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 497, Short.MAX_VALUE)
-        );
+        jPanelManageRepair.setForeground(new java.awt.Color(102, 0, 102));
+        jPanelManageRepair.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel30.setFont(new java.awt.Font("Helvetica Neue", 1, 25)); // NOI18N
+        jLabel30.setForeground(new java.awt.Color(0, 0, 153));
+        jLabel30.setText("Manage Repair Jobs");
+        jPanelManageRepair.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        jLabel35.setFont(new java.awt.Font("Helvetica Neue", 1, 20)); // NOI18N
+        jLabel35.setForeground(new java.awt.Color(102, 0, 102));
+        jLabel35.setText("Job ID:");
+        jPanelManageRepair.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 10, -1, -1));
+
+        lableJobId.setFont(new java.awt.Font("Helvetica Neue", 1, 20)); // NOI18N
+        lableJobId.setForeground(new java.awt.Color(102, 0, 102));
+        jPanelManageRepair.add(lableJobId, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 0, 100, 40));
+
+        jLabel37.setFont(new java.awt.Font("Helvetica Neue", 1, 15)); // NOI18N
+        jLabel37.setText("Customer ID:");
+        jPanelManageRepair.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 59, -1, 30));
+
+        txtRepairIJobCustomerID.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        txtRepairIJobCustomerID.setNextFocusableComponent(txtRepairJobRepairItemId);
+        txtRepairIJobCustomerID.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtRepairIJobCustomerIDKeyTyped(evt);
+            }
+        });
+        jPanelManageRepair.add(txtRepairIJobCustomerID, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 160, 30));
+
+        jLabel38.setFont(new java.awt.Font("Helvetica Neue", 1, 15)); // NOI18N
+        jLabel38.setText("Repair Item ID:");
+        jPanelManageRepair.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 60, -1, 30));
+
+        txtRepairJobRepairItemId.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        txtRepairJobRepairItemId.setNextFocusableComponent(dateScheduleDate);
+        txtRepairJobRepairItemId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtRepairJobRepairItemIdKeyTyped(evt);
+            }
+        });
+        jPanelManageRepair.add(txtRepairJobRepairItemId, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 60, 140, 30));
+
+        jLabel39.setFont(new java.awt.Font("Helvetica Neue", 1, 15)); // NOI18N
+        jLabel39.setText("Schedule Date:");
+        jPanelManageRepair.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 60, -1, 30));
+
+        dateScheduleDate.setNextFocusableComponent(comboSetTatus);
+        jPanelManageRepair.add(dateScheduleDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 60, 150, 31));
+
+        comboSetTatus.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        comboSetTatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pending", "In Progress", "Cancalled", "Waiting for Parts", "Completed" }));
+        comboSetTatus.setNextFocusableComponent(txtAreaDescription);
+        jPanelManageRepair.add(comboSetTatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 113, 160, 30));
+
+        txtAreaDescription.setColumns(20);
+        txtAreaDescription.setRows(5);
+        txtAreaDescription.setNextFocusableComponent(btnAddJob);
+        jScrollPane6.setViewportView(txtAreaDescription);
+
+        jPanelManageRepair.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 100, 420, 59));
+
+        jLabel40.setFont(new java.awt.Font("Helvetica Neue", 1, 15)); // NOI18N
+        jLabel40.setText("Description:");
+        jPanelManageRepair.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 120, -1, -1));
+
+        jLabel41.setFont(new java.awt.Font("Helvetica Neue", 1, 15)); // NOI18N
+        jLabel41.setText("Status:");
+        jPanelManageRepair.add(jLabel41, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, -1, -1));
+
+        tableJob.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Job ID", "Customer ID", "Repair Item ID", "Scheduled Date", "Status", "Description"
+            }
+        ));
+        tableJob.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableJobMouseClicked(evt);
+            }
+        });
+        jScrollPane7.setViewportView(tableJob);
+        if (tableJob.getColumnModel().getColumnCount() > 0) {
+            tableJob.getColumnModel().getColumn(0).setMinWidth(100);
+            tableJob.getColumnModel().getColumn(0).setPreferredWidth(100);
+            tableJob.getColumnModel().getColumn(0).setMaxWidth(100);
+            tableJob.getColumnModel().getColumn(1).setMinWidth(100);
+            tableJob.getColumnModel().getColumn(1).setPreferredWidth(100);
+            tableJob.getColumnModel().getColumn(1).setMaxWidth(100);
+            tableJob.getColumnModel().getColumn(2).setMinWidth(100);
+            tableJob.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tableJob.getColumnModel().getColumn(2).setMaxWidth(100);
+            tableJob.getColumnModel().getColumn(3).setMinWidth(100);
+            tableJob.getColumnModel().getColumn(3).setPreferredWidth(100);
+            tableJob.getColumnModel().getColumn(3).setMaxWidth(100);
+            tableJob.getColumnModel().getColumn(4).setMinWidth(100);
+            tableJob.getColumnModel().getColumn(4).setPreferredWidth(100);
+            tableJob.getColumnModel().getColumn(4).setMaxWidth(100);
+        }
+
+        jPanelManageRepair.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 840, 220));
+
+        jLabel42.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        jLabel42.setText("Search Here:");
+        jPanelManageRepair.add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 250, -1, 20));
+
+        txtSearchJob.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSearchJobKeyReleased(evt);
+            }
+        });
+        jPanelManageRepair.add(txtSearchJob, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 250, 210, -1));
+
+        btnAddJob.setFont(new java.awt.Font("Helvetica Neue", 1, 15)); // NOI18N
+        btnAddJob.setText("Add Job");
+        btnAddJob.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddJobActionPerformed(evt);
+            }
+        });
+        jPanelManageRepair.add(btnAddJob, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, -1, -1));
+
+        btnEditJob.setFont(new java.awt.Font("Helvetica Neue", 1, 15)); // NOI18N
+        btnEditJob.setText("Edit Existing Job");
+        btnEditJob.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditJobActionPerformed(evt);
+            }
+        });
+        jPanelManageRepair.add(btnEditJob, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 190, -1, -1));
+
+        btnDeleteJob.setFont(new java.awt.Font("Helvetica Neue", 1, 15)); // NOI18N
+        btnDeleteJob.setForeground(new java.awt.Color(255, 0, 0));
+        btnDeleteJob.setText("Delete Existing Job");
+        btnDeleteJob.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteJobActionPerformed(evt);
+            }
+        });
+        jPanelManageRepair.add(btnDeleteJob, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 190, -1, -1));
+
+        btnJobFieldClear.setFont(new java.awt.Font("Helvetica Neue", 1, 15)); // NOI18N
+        btnJobFieldClear.setText("Clear Fields");
+        btnJobFieldClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnJobFieldClearActionPerformed(evt);
+            }
+        });
+        jPanelManageRepair.add(btnJobFieldClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 190, -1, -1));
 
         jTabbedPane1.addTab("tab3", jPanelManageRepair);
 
@@ -1345,7 +1520,7 @@ public class MainFrame extends javax.swing.JFrame {
         LoginFrame loginFrame = new LoginFrame();
         this.dispose();
         loginFrame.setVisible(true);
-         
+
     }//GEN-LAST:event_lableLogoutMouseClicked
 
     private void lableManageRepairJobMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lableManageRepairJobMouseClicked
@@ -1357,6 +1532,10 @@ public class MainFrame extends javax.swing.JFrame {
         lableManageStocks.setForeground(Color.white);
         lableManageSupplier.setForeground(Color.white);
         lableManageUser.setForeground(Color.white);
+        JTableHeader tableHeader = tableJob.getTableHeader();
+        tableHeader.setFont(new Font("Tahome", Font.BOLD, 13));
+        getnextJobId();
+        loadJob();
     }//GEN-LAST:event_lableManageRepairJobMouseClicked
 
     private void lableManageInvoiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lableManageInvoiceMouseClicked
@@ -1538,7 +1717,7 @@ public class MainFrame extends javax.swing.JFrame {
 
             if (result == JOptionPane.YES_OPTION) {
                 mailSender.sendMail(customerEmail, "Confirm Your Registration", "Hello: " + customerName + "," + "\n\nThank you for choosing us. You have successfully registered with us. \n\nJANAKA COMPUTERS \n" + (LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))) + "");
-            }else{
+            } else {
                 clearCustomerFields();
             }
         }
@@ -1886,10 +2065,142 @@ public class MainFrame extends javax.swing.JFrame {
         grnf.setVisible(true);
     }//GEN-LAST:event_btnGRNActionPerformed
 
+    private void txtSearchJobKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchJobKeyReleased
+        DefaultTableModel model = (DefaultTableModel) tableJob.getModel();
+        TableRowSorter<DefaultTableModel> tableRowSorter = new TableRowSorter<>(model);
+        tableJob.setRowSorter(tableRowSorter);
+        tableRowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtSearchJob.getText().toLowerCase()));
+    }//GEN-LAST:event_txtSearchJobKeyReleased
+
+    private void txtRepairJobRepairItemIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRepairJobRepairItemIdKeyTyped
+        char c = evt.getKeyChar();
+        if (Character.isLetter(c) && !evt.isAltDown()) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtRepairJobRepairItemIdKeyTyped
+
+    private void txtRepairIJobCustomerIDKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRepairIJobCustomerIDKeyTyped
+        char c = evt.getKeyChar();
+        if (Character.isLetter(c) && !evt.isAltDown()) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtRepairIJobCustomerIDKeyTyped
+
+    private void txtCustomerPhoneNoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCustomerPhoneNoKeyTyped
+        char c = evt.getKeyChar();
+        if (Character.isLetter(c) && !evt.isAltDown()) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCustomerPhoneNoKeyTyped
+
+    private void txtRepairItemCustomerIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRepairItemCustomerIdKeyTyped
+        char c = evt.getKeyChar();
+        if (Character.isLetter(c) && !evt.isAltDown()) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtRepairItemCustomerIdKeyTyped
+
+    private void btnJobFieldClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJobFieldClearActionPerformed
+        clearJobField();
+    }//GEN-LAST:event_btnJobFieldClearActionPerformed
+
+    private void btnAddJobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddJobActionPerformed
+        if (jobFieldCheck()) {
+            int customerId = Integer.parseInt(txtRepairIJobCustomerID.getText());
+            int repairItemId = Integer.parseInt(txtRepairJobRepairItemId.getText());
+            String date = sdf.format(dateScheduleDate.getDate());
+            String jobStatus = (String) comboSetTatus.getSelectedItem();
+            String description = txtAreaDescription.getText();
+            manageJob.addRepairJob(customerId, repairItemId, date, jobStatus, description);
+            loadJob();
+            clearJobField();
+            getnextJobId();
+            
+            int result = JOptionPane.showConfirmDialog(rootPane, "Are you want send update to customer?", "Confirmation", JOptionPane.YES_NO_OPTION);
+
+                if (result == JOptionPane.YES_OPTION) {
+                    String cusEmail = customer.getCustomerEmail(customerId);
+                    mailSender.sendMail(cusEmail, "Your Repair Item Add Successful", "Hello, \nYour Customer ID: "+customerId+"\nYour Repair Item ID: "+repairItemId+"\nScheduled date: "+date+"\nCurrent Status: "+jobStatus+"\nDescription: "+description+"\n\nThank you for choosing us.\nLanka Janaka Computer\n"+(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));  
+                }
+
+        }
+    }//GEN-LAST:event_btnAddJobActionPerformed
+
+    private void tableJobMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableJobMouseClicked
+        DefaultTableModel model = (DefaultTableModel) tableJob.getModel();
+        int i = tableJob.getSelectedRow();
+
+        try {
+            lableJobId.setText(model.getValueAt(i, 0).toString());
+            txtRepairIJobCustomerID.setText(model.getValueAt(i, 1).toString());
+            txtRepairJobRepairItemId.setText(model.getValueAt(i, 2).toString());
+            dateScheduleDate.setDate((Date) model.getValueAt(i, 3));
+            comboSetTatus.setSelectedItem(model.getValueAt(i, 4).toString());
+            txtAreaDescription.setText(model.getValueAt(i, 5).toString());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "An error occurred: " + e, "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_tableJobMouseClicked
+
+    private void btnDeleteJobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteJobActionPerformed
+
+        int jobId = Integer.parseInt(lableJobId.getText());
+        int nextJob = manageJob.getNextJobId();
+        if (jobId == nextJob) {
+            JOptionPane.showMessageDialog(rootPane, "Please selecet relevent row from table", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            int result = JOptionPane.showConfirmDialog(rootPane, "Are you sure you want delete?", "Confirmation", JOptionPane.YES_NO_OPTION);
+
+            if (result == JOptionPane.YES_OPTION) {
+                manageJob.deleteJob(jobId);
+                loadJob();
+                clearJobField();
+            } else {
+                clearJobField();
+            }
+
+        }
+    }//GEN-LAST:event_btnDeleteJobActionPerformed
+
+    private void btnEditJobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditJobActionPerformed
+        int jobId = Integer.parseInt(lableJobId.getText());
+        int nextJob = manageJob.getNextJobId();
+        if (jobId == nextJob) {
+            JOptionPane.showMessageDialog(rootPane, "Please selecet relevent row from table", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            int result = JOptionPane.showConfirmDialog(rootPane, "Are you sure you want update?", "Confirmation", JOptionPane.YES_NO_OPTION);
+
+            if (result == JOptionPane.YES_OPTION) {
+                int customerId = Integer.parseInt(txtRepairIJobCustomerID.getText());
+                int repairItemId = Integer.parseInt(txtRepairJobRepairItemId.getText());
+                String date = sdf.format(dateScheduleDate.getDate());
+                String jobStatus = (String) comboSetTatus.getSelectedItem();
+                String description = txtAreaDescription.getText();
+                manageJob.updateJob(customerId, repairItemId, date, jobStatus, description, jobId);
+                
+                int result2 = JOptionPane.showConfirmDialog(rootPane, "Are you want send update to customer?", "Confirmation", JOptionPane.YES_NO_OPTION);
+
+                if (result2 == JOptionPane.YES_OPTION) {
+                    String cusEmail = customer.getCustomerEmail(customerId);
+                    mailSender.sendMail(cusEmail, "Regarding Your Repair Item Details Update", "Hello, \nYour Customer ID: "+customerId+"\nYour Repair Item ID: "+repairItemId+"\nRescheduled date: "+date+"\nCurrent Status: "+jobStatus+"\nDescription: "+description+"\n\nThank you for choosing us.\nLanka Janaka Computer\n"+(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));  
+                }
+
+                loadJob();
+                clearJobField();
+            } else {
+                clearJobField();
+            }
+        }
+    }//GEN-LAST:event_btnEditJobActionPerformed
+
     public String getdate() {
         Date d = new Date();
         String dd = sdf.format(d);
         return dd;
+    }
+
+    private void getnextJobId() {
+        lableJobId.setText(Integer.toString(manageJob.getNextJobId()));
     }
 
     public void loadUser() {
@@ -1931,6 +2242,27 @@ public class MainFrame extends javax.swing.JFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(rootPane, e, "Warning", JOptionPane.WARNING_MESSAGE);
         }
+    }
+
+    private void loadJob() {
+        ResultSet resultSet = manageJob.readJob();
+        DefaultTableModel model = (DefaultTableModel) tableJob.getModel();
+        model.setRowCount(0);
+
+        try {
+            while (resultSet.next()) {
+                int jobId = resultSet.getInt(1);
+                int customerId = resultSet.getInt(2);
+                int itemId = resultSet.getInt(3);
+                Date scheduleDate = resultSet.getDate(4);
+                String status = resultSet.getString(5);
+                String description = resultSet.getString(6);
+                model.addRow(new Object[]{jobId, customerId, itemId, scheduleDate, status, description});
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(rootPane, e, "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+
     }
 
     public void loadRepairItem() {
@@ -2026,6 +2358,29 @@ public class MainFrame extends javax.swing.JFrame {
         txtSupplierPhoneNo.setText("");
         txtSupplierEmail.setText("");
         txtSupplierAddress.setText("");
+    }
+
+    private void clearJobField() {
+        txtRepairIJobCustomerID.setText("");
+        txtRepairJobRepairItemId.setText("");
+        dateScheduleDate.setDate(null);
+        comboSetTatus.setSelectedIndex(0);
+        txtAreaDescription.setText("");
+        getnextJobId();
+    }
+
+    private boolean jobFieldCheck() {
+        String customerId = txtRepairIJobCustomerID.getText();
+        String repairItemId = txtRepairJobRepairItemId.getText();
+        Date date = dateScheduleDate.getDate();
+        String jobStatus = (String) comboSetTatus.getSelectedItem();
+        String description = txtAreaDescription.getText();
+
+        if (customerId.isEmpty() || repairItemId.isEmpty() || date == null || jobStatus.isEmpty() || description.isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "All fields are mandatory", "Warning", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        return true;
     }
 
     public boolean supplierFieldCheck() {
@@ -2178,6 +2533,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddCustomer;
+    private javax.swing.JButton btnAddJob;
     private javax.swing.JButton btnAddPart;
     private javax.swing.JButton btnAddRepairItem;
     private javax.swing.JButton btnAddSupplier;
@@ -2186,9 +2542,12 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnClearManageStockPartField;
     private javax.swing.JButton btnClearUserField;
     private javax.swing.JButton btnDeleteCustomer;
+    private javax.swing.JButton btnDeleteJob;
     private javax.swing.JButton btnDeleteUser;
+    private javax.swing.JButton btnEditJob;
     private javax.swing.JButton btnEditPart;
     private javax.swing.JButton btnGRN;
+    private javax.swing.JButton btnJobFieldClear;
     private javax.swing.JButton btnPartDelete;
     private javax.swing.JButton btnRepairItemDelete;
     private javax.swing.JButton btnRepairItemFieldsClear;
@@ -2200,7 +2559,9 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnUpdateSupplier;
     private javax.swing.JButton btnUpdateUser;
     private javax.swing.JComboBox<String> comboSelectRepairItemType;
+    private javax.swing.JComboBox<String> comboSetTatus;
     private com.toedter.calendar.JDateChooser dateRepairItemEntryDate;
+    private com.toedter.calendar.JDateChooser dateScheduleDate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2224,11 +2585,19 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -2249,9 +2618,12 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lableCustomerId;
     private javax.swing.JLabel lableDate;
+    private javax.swing.JLabel lableJobId;
     private javax.swing.JLabel lableLogout;
     private javax.swing.JLabel lableManageCustomer;
     private javax.swing.JLabel lableManageInvoice;
@@ -2265,10 +2637,12 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lableSupplierId;
     private javax.swing.JLabel lableUserId;
     private javax.swing.JTable tableCustomer;
+    private javax.swing.JTable tableJob;
     private javax.swing.JTable tablePart;
     private javax.swing.JTable tableRepairItem;
     private javax.swing.JTable tableSupplier;
     private javax.swing.JTable tableUser;
+    private javax.swing.JTextArea txtAreaDescription;
     private javax.swing.JTextField txtCustomerEmail;
     private javax.swing.JTextField txtCustomerName;
     private javax.swing.JTextField txtCustomerPhoneNo;
@@ -2276,9 +2650,12 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField txtPartName;
     private javax.swing.JTextField txtPartPrice;
     private javax.swing.JTextField txtPartQuantity;
+    private javax.swing.JTextField txtRepairIJobCustomerID;
     private javax.swing.JTextField txtRepairItemBrand;
     private javax.swing.JTextField txtRepairItemCustomerId;
     private javax.swing.JTextField txtRepairItemSearch;
+    private javax.swing.JTextField txtRepairJobRepairItemId;
+    private javax.swing.JTextField txtSearchJob;
     private javax.swing.JTextField txtSearchPart;
     private javax.swing.JTextField txtSearchSupplier;
     private javax.swing.JTextField txtSupplierAddress;

@@ -2514,8 +2514,8 @@ public class MainFrame extends javax.swing.JFrame {
         int quantity = invoice.stockQuantityCheck(partId);
         if (enteredQuantity <= quantity) {
 
-        }else{
-            JOptionPane.showMessageDialog(rootPane, "There is no quantity in stock\nCurrent stock quantity is: "+quantity,"warning",JOptionPane.WARNING_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "There is no quantity in stock\nCurrent stock quantity is: " + quantity, "warning", JOptionPane.WARNING_MESSAGE);
             clearInvoiceField();
         }
     }//GEN-LAST:event_txtInvoiceQuanityFocusLost
@@ -2563,16 +2563,15 @@ public class MainFrame extends javax.swing.JFrame {
                 txtAreaDescription.setText(textAreaPrint.getText() + service + "\t\t :" + serviceCharge + "\n\n");
             }
         }
-        if(serviceCharge != null){
+        if (serviceCharge != null) {
             try {
-            int newServiceCharge = 0;
-            newServiceCharge = Integer.parseInt(serviceCharge);
-            subtotal += newServiceCharge;
-        } catch (NumberFormatException e) {
+                int newServiceCharge = 0;
+                newServiceCharge = Integer.parseInt(serviceCharge);
+                subtotal += newServiceCharge;
+            } catch (NumberFormatException e) {
 
+            }
         }
-        }
-        
 
         String doubleDesimalSubTotal = df.format(subtotal);
         textAreaPrint.setText(textAreaPrint.getText() + "\n\n\t\t\t" + "     SubTotal:" + doubleDesimalSubTotal + "\n");

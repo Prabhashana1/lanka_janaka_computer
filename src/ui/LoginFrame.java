@@ -1,4 +1,3 @@
-
 package ui;
 
 import database.User;

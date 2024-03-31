@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package database;
 
 import java.sql.Connection;
@@ -145,8 +141,8 @@ public class Invoice {
         }
         return quantity;
     }
-    
-    public int verifyCustomerId(int jobId){
+
+    public int verifyCustomerId(int jobId) {
         int customerId = 0;
         String sql = "SELECT customer_id FROM repair_job WHERE job_id = ?";
 

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package database;
 
 import java.sql.Connection;
@@ -11,16 +7,13 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
- *
  * @author prabhashana
  */
 public class RepairItem {
-    
+
     private Connection con = DatabaseConnection.getConnection();
     private PreparedStatement ps = null;
-    
-    
-    
+
     public void addRepairItem(int customerId, String type, String brand, String entyDate) {
 
         String sql = "INSERT INTO repair_item (customer_id, type, brand, entry_date) VALUES (?, ?, ?, ?)";
@@ -38,7 +31,7 @@ public class RepairItem {
             JOptionPane.showMessageDialog(null, e, "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }
-    
+
     public ResultSet readRepairItem() {
         ResultSet resultSet = null;
         String sql = "SELECT r.repair_itemId, r.type, r.brand, r.entry_date, r.customer_id, c.name FROM repair_item r INNER JOIN customer c ON r.customer_id = c.customer_id";
@@ -47,12 +40,10 @@ public class RepairItem {
             resultSet = ps.executeQuery();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e, "Warning", JOptionPane.WARNING_MESSAGE);
-        } 
+        }
         return resultSet;
     }
-    
-    
-    
+
     public void updateRepairItem(int customerId, String type, String brand, String entyDate, int repair_itemId) {
         String sql = "UPDATE repair_item SET customer_id = ?, type = ?, brand = ?, entry_date = ? WHERE repair_itemId = ?";
 
@@ -71,10 +62,9 @@ public class RepairItem {
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e, "Warning", JOptionPane.WARNING_MESSAGE);
-        } 
+        }
     }
-    
-    
+
     public void deleteRepairItem(int repairItemId) {
         String sql = "DELETE FROM repair_item WHERE repair_itemId = ?";
 
@@ -89,12 +79,7 @@ public class RepairItem {
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e, "Warning", JOptionPane.WARNING_MESSAGE);
-        } 
+        }
     }
-    
-    
-    
-    
-    
-    
+
 }

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package database;
 
 import java.sql.PreparedStatement;
@@ -133,28 +129,25 @@ public class ManageOrder {
         }
         return nextId;
     }
-    
 
-    
-    public String getSupplierName(int supplierID){
+    public String getSupplierName(int supplierID) {
         String name = null;
         String sql = "SELECT name FROM supplier WHERE id = ?";
-        
+
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, supplierID);
             resultSet = ps.executeQuery();
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 name = resultSet.getString("name");
-            }else{
-                JOptionPane.showMessageDialog(null, "name not found relevent with supplier ID: "+supplierID, "Warning", JOptionPane.WARNING_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "name not found relevent with supplier ID: " + supplierID, "Warning", JOptionPane.WARNING_MESSAGE);
             }
-            
+
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e, "Warning", JOptionPane.WARNING_MESSAGE);
         }
         return name;
     }
-
 
 }

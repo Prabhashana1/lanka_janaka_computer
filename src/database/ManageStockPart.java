@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package database;
 
 import java.sql.Connection;
@@ -15,12 +11,10 @@ import javax.swing.JOptionPane;
  * @author prabhashana
  */
 public class ManageStockPart {
-    
-    
+
     private Connection con = DatabaseConnection.getConnection();
     private PreparedStatement ps = null;
-    
-    
+
     public ResultSet readStockPart() {
         ResultSet resultSet = null;
         String sql = "SELECT * FROM stock";
@@ -29,13 +23,10 @@ public class ManageStockPart {
             resultSet = ps.executeQuery();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e, "Warning", JOptionPane.WARNING_MESSAGE);
-        } 
+        }
         return resultSet;
     }
-    
-    
-    
-    
+
     public void addStockPart(String name, int quantity, double price) {
 
         String sql = "INSERT INTO stock (name, quantity, price) VALUES (?, ?, ?)";
@@ -52,8 +43,7 @@ public class ManageStockPart {
             JOptionPane.showMessageDialog(null, e, "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }
-    
-    
+
     public void updateStockPart(int partId, String name, int quantity, double price) {
         String sql = "UPDATE stock SET name = ?, quantity = ?, price = ? WHERE part_id = ?";
 
@@ -71,10 +61,9 @@ public class ManageStockPart {
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e, "Warning", JOptionPane.WARNING_MESSAGE);
-        } 
+        }
     }
-    
-    
+
     public void deletePart(int partId) {
         String sql = "DELETE FROM stock WHERE part_id = ?";
 
@@ -91,10 +80,5 @@ public class ManageStockPart {
             JOptionPane.showMessageDialog(null, e, "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }
-    
-    
-    
-    
-    
-    
+
 }

@@ -11,7 +11,6 @@ import org.mindrot.jbcrypt.BCrypt;
  * @author prabhashana
  */
 public class User {
-    
 
     private Connection con = DatabaseConnection.getConnection();
     private PreparedStatement ps = null;
@@ -42,7 +41,7 @@ public class User {
             resultSet = ps.executeQuery();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e, "Warning", JOptionPane.WARNING_MESSAGE);
-        } 
+        }
         return resultSet;
     }
 
@@ -64,7 +63,7 @@ public class User {
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e, "Warning", JOptionPane.WARNING_MESSAGE);
-        } 
+        }
     }
 
     public void deleteUser(int userId) {
@@ -81,7 +80,7 @@ public class User {
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e, "Warning", JOptionPane.WARNING_MESSAGE);
-        } 
+        }
     }
 
     public boolean verifyUser(String username, String password) {
@@ -92,10 +91,10 @@ public class User {
             ps.setString(1, username);
             ResultSet resultSet = ps.executeQuery();
 
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 String hashedPasswordDb = resultSet.getString("password");
-                
-                if(BCrypt.checkpw(password, hashedPasswordDb)){
+
+                if (BCrypt.checkpw(password, hashedPasswordDb)) {
                     return true;
                 }
             }
@@ -106,7 +105,7 @@ public class User {
         return false;
 
     }
-    
+
     public String hashPassword(String password) {
         return BCrypt.hashpw(password, BCrypt.gensalt());
     }

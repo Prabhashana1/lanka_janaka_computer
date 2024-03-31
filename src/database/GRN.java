@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package database;
 
 import java.sql.Connection;
@@ -9,8 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,11 +12,11 @@ import javax.swing.JOptionPane;
  * @author prabhashana
  */
 public class GRN {
-    
+
     private Connection con = DatabaseConnection.getConnection();
     private PreparedStatement ps = null;
     private ResultSet resultSet = null;
-    
+
     public String getPartName(int id) {
         String name = null;
         String sql = "SELECT name FROM stock WHERE part_id = ?";
@@ -42,9 +36,7 @@ public class GRN {
         }
         return name;
     }
-    
-    
- 
+
     public ResultSet readGRNHistory() {
         String sql = "SELECT g.GRN_id, s.name, gd.quantity, gd.price, g.date FROM GRN g JOIN GRN_detail gd ON g.GRN_id = gd.GRN_id JOIN stock s ON gd.part_id = s.part_id;";
         try {
@@ -52,11 +44,10 @@ public class GRN {
             resultSet = ps.executeQuery();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e, "Warning", JOptionPane.WARNING_MESSAGE);
-        } 
+        }
         return resultSet;
     }
-    
-    
+
     public int nextGRNId() {
         int nextId = 1;
         String sql = "SELECT MAX(GRN_id) FROM GRN";
@@ -73,12 +64,11 @@ public class GRN {
         }
         return nextId;
     }
-    
-    
+
     int grnID;
-    
-    public void commitGRN(){
-        
+
+    public void commitGRN() {
+
         try {
             con.setAutoCommit(false);
             ps = con.prepareStatement("INSERT INTO GRN (date) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
@@ -100,9 +90,8 @@ public class GRN {
             JOptionPane.showMessageDialog(null, e, "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }
-    
-    
-    public void addGRNDetails(int partId, int quantity, double price){
+
+    public void addGRNDetails(int partId, int quantity, double price) {
         try {
             con.setAutoCommit(false);
             ps = con.prepareStatement("INSERT INTO GRN_detail (GRN_id, part_id, quantity, price) VALUES (?, ?, ?, ?)");
@@ -121,8 +110,8 @@ public class GRN {
         }
 
     }
-    
-    public void updateStock(int partId, int quantity, double price){
+
+    public void updateStock(int partId, int quantity, double price) {
         try {
             con.setAutoCommit(false);
             ps = con.prepareStatement("UPDATE stock SET quantity = quantity + ?, price = ? WHERE part_id = ?");
@@ -130,8 +119,7 @@ public class GRN {
             ps.setDouble(2, price);
             ps.setInt(3, partId);
             ps.executeUpdate();
-            
-            
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex, "Warning", JOptionPane.WARNING_MESSAGE);
             try {
@@ -146,9 +134,5 @@ public class GRN {
             }
         }
     }
-    
-    
-    
-    
-    
+
 }

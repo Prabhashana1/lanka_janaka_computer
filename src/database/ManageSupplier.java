@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package database;
 
 import java.sql.Connection;
@@ -15,12 +11,10 @@ import javax.swing.JOptionPane;
  * @author prabhashana
  */
 public class ManageSupplier {
-    
+
     private Connection con = DatabaseConnection.getConnection();
     private PreparedStatement ps = null;
 
-    
-    
     public void addSupplier(String name, String phoneNo, String email, String address) {
 
         String sql = "INSERT INTO supplier (name, phone_number, email, address) VALUES (?, ?, ?, ?)";
@@ -47,7 +41,7 @@ public class ManageSupplier {
             resultSet = ps.executeQuery();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e, "Warning", JOptionPane.WARNING_MESSAGE);
-        } 
+        }
         return resultSet;
     }
 
@@ -69,7 +63,7 @@ public class ManageSupplier {
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e, "Warning", JOptionPane.WARNING_MESSAGE);
-        } 
+        }
     }
 
     public void deleteSupplier(int id) {
@@ -86,10 +80,7 @@ public class ManageSupplier {
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e, "Warning", JOptionPane.WARNING_MESSAGE);
-        } 
+        }
     }
-    
-    
-    
-    
+
 }

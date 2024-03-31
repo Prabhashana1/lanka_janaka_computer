@@ -5,6 +5,8 @@
 package ui;
 
 import database.Customer;
+import database.GRN;
+import database.Invoice;
 import database.ManageJob;
 import database.ManageStockPart;
 import database.ManageSupplier;
@@ -40,6 +42,8 @@ public class MainFrame extends javax.swing.JFrame {
     database.RepairItem repairItem = new RepairItem();
     database.ManageStockPart manageStockPart = new ManageStockPart();
     database.ManageSupplier manageSupplier = new ManageSupplier();
+    database.GRN grn = new GRN();
+    database.Invoice invoice = new Invoice();
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     DecimalFormat df = new DecimalFormat("0.00");
     database.ManageJob manageJob = new ManageJob();
@@ -141,6 +145,29 @@ public class MainFrame extends javax.swing.JFrame {
         btnDeleteJob = new javax.swing.JButton();
         btnJobFieldClear = new javax.swing.JButton();
         jPanelInvoice = new javax.swing.JPanel();
+        jLabel36 = new javax.swing.JLabel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        tableInvoice = new javax.swing.JTable();
+        jLabel43 = new javax.swing.JLabel();
+        txtInvoiceJobId = new javax.swing.JTextField();
+        jLabel44 = new javax.swing.JLabel();
+        txtInvoiceCustomerId = new javax.swing.JTextField();
+        jLabel45 = new javax.swing.JLabel();
+        txtInvoicePartId = new javax.swing.JTextField();
+        jLabel46 = new javax.swing.JLabel();
+        lableInvoicePartName = new javax.swing.JLabel();
+        jLabel48 = new javax.swing.JLabel();
+        jLabel49 = new javax.swing.JLabel();
+        txtInvoicePrice = new javax.swing.JTextField();
+        btnAddToPrint = new javax.swing.JButton();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        textAreaPrint = new javax.swing.JTextArea();
+        btnPayAndPrint = new javax.swing.JButton();
+        txtInvoiceQuanity = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         jPanelStock = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -888,16 +915,184 @@ public class MainFrame extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("tab3", jPanelManageRepair);
 
-        javax.swing.GroupLayout jPanelInvoiceLayout = new javax.swing.GroupLayout(jPanelInvoice);
-        jPanelInvoice.setLayout(jPanelInvoiceLayout);
-        jPanelInvoiceLayout.setHorizontalGroup(
-            jPanelInvoiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 840, Short.MAX_VALUE)
-        );
-        jPanelInvoiceLayout.setVerticalGroup(
-            jPanelInvoiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 497, Short.MAX_VALUE)
-        );
+        jPanelInvoice.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel36.setFont(new java.awt.Font("Helvetica Neue", 1, 25)); // NOI18N
+        jLabel36.setForeground(new java.awt.Color(0, 0, 153));
+        jLabel36.setText("Customer Invoice");
+        jPanelInvoice.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 220, -1));
+
+        tableInvoice.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Part ID", "Name", "Quantity", "Price"
+            }
+        ));
+        tableInvoice.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableInvoiceMouseClicked(evt);
+            }
+        });
+        jScrollPane8.setViewportView(tableInvoice);
+        if (tableInvoice.getColumnModel().getColumnCount() > 0) {
+            tableInvoice.getColumnModel().getColumn(0).setMinWidth(75);
+            tableInvoice.getColumnModel().getColumn(0).setPreferredWidth(75);
+            tableInvoice.getColumnModel().getColumn(0).setMaxWidth(75);
+            tableInvoice.getColumnModel().getColumn(2).setMinWidth(50);
+            tableInvoice.getColumnModel().getColumn(2).setPreferredWidth(50);
+            tableInvoice.getColumnModel().getColumn(2).setMaxWidth(50);
+            tableInvoice.getColumnModel().getColumn(3).setMinWidth(100);
+            tableInvoice.getColumnModel().getColumn(3).setPreferredWidth(100);
+            tableInvoice.getColumnModel().getColumn(3).setMaxWidth(100);
+        }
+
+        jPanelInvoice.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 500, 330));
+
+        jLabel43.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        jLabel43.setText("Job ID:");
+        jPanelInvoice.add(jLabel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 0, -1, 30));
+
+        txtInvoiceJobId.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        txtInvoiceJobId.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtInvoiceJobIdFocusLost(evt);
+            }
+        });
+        txtInvoiceJobId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtInvoiceJobIdKeyTyped(evt);
+            }
+        });
+        jPanelInvoice.add(txtInvoiceJobId, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 90, 30));
+
+        jLabel44.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        jLabel44.setText("Customer ID:");
+        jPanelInvoice.add(jLabel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 0, -1, 30));
+
+        txtInvoiceCustomerId.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        txtInvoiceCustomerId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtInvoiceCustomerIdKeyTyped(evt);
+            }
+        });
+        jPanelInvoice.add(txtInvoiceCustomerId, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 0, 100, 30));
+
+        jLabel45.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        jLabel45.setText("Part ID:");
+        jPanelInvoice.add(jLabel45, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, 30));
+
+        txtInvoicePartId.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        txtInvoicePartId.setNextFocusableComponent(txtInvoiceQuanity);
+        txtInvoicePartId.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtInvoicePartIdFocusLost(evt);
+            }
+        });
+        txtInvoicePartId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtInvoicePartIdKeyTyped(evt);
+            }
+        });
+        jPanelInvoice.add(txtInvoicePartId, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, 120, 30));
+
+        jLabel46.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        jLabel46.setText("Part Name:");
+        jPanelInvoice.add(jLabel46, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 40, -1, 30));
+
+        lableInvoicePartName.setFont(new java.awt.Font("Helvetica Neue", 1, 15)); // NOI18N
+        jPanelInvoice.add(lableInvoicePartName, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, 240, 30));
+
+        jLabel48.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        jLabel48.setText("Quantity:");
+        jPanelInvoice.add(jLabel48, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, 30));
+
+        jLabel49.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        jLabel49.setText("Price:");
+        jPanelInvoice.add(jLabel49, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, -1, 30));
+
+        txtInvoicePrice.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        txtInvoicePrice.setNextFocusableComponent(btnAddToPrint);
+        txtInvoicePrice.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtInvoicePriceKeyTyped(evt);
+            }
+        });
+        jPanelInvoice.add(txtInvoicePrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 90, 130, 30));
+
+        btnAddToPrint.setFont(new java.awt.Font("Helvetica Neue", 1, 17)); // NOI18N
+        btnAddToPrint.setText("Add");
+        btnAddToPrint.setNextFocusableComponent(txtInvoicePartId);
+        btnAddToPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddToPrintActionPerformed(evt);
+            }
+        });
+        jPanelInvoice.add(btnAddToPrint, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 90, 90, 30));
+
+        textAreaPrint.setColumns(20);
+        textAreaPrint.setRows(5);
+        jScrollPane10.setViewportView(textAreaPrint);
+
+        jPanelInvoice.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 40, 320, 400));
+
+        btnPayAndPrint.setFont(new java.awt.Font("Helvetica Neue", 1, 20)); // NOI18N
+        btnPayAndPrint.setForeground(new java.awt.Color(0, 0, 204));
+        btnPayAndPrint.setText("Pay & Print");
+        btnPayAndPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPayAndPrintActionPerformed(evt);
+            }
+        });
+        jPanelInvoice.add(btnPayAndPrint, new org.netbeans.lib.awtextra.AbsoluteConstraints(692, 450, 140, -1));
+
+        txtInvoiceQuanity.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        txtInvoiceQuanity.setNextFocusableComponent(btnAddToPrint);
+        txtInvoiceQuanity.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtInvoiceQuanityFocusLost(evt);
+            }
+        });
+        txtInvoiceQuanity.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtInvoiceQuanityKeyTyped(evt);
+            }
+        });
+        jPanelInvoice.add(txtInvoiceQuanity, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 100, 30));
+
+        jButton1.setFont(new java.awt.Font("Helvetica Neue", 1, 20)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(0, 0, 102));
+        jButton1.setText("Bill");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanelInvoice.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 450, -1, -1));
+
+        jButton2.setFont(new java.awt.Font("Helvetica Neue", 1, 15)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(204, 0, 51));
+        jButton2.setText("Remove");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanelInvoice.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 130, -1, -1));
+
+        jButton3.setFont(new java.awt.Font("Helvetica Neue", 1, 20)); // NOI18N
+        jButton3.setText("Clear");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanelInvoice.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 450, 80, -1));
+
+        jButton4.setFont(new java.awt.Font("Helvetica Neue", 1, 15)); // NOI18N
+        jButton4.setText("Invoice History");
+        jPanelInvoice.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, 150, -1));
 
         jTabbedPane1.addTab("tab4", jPanelInvoice);
 
@@ -1547,6 +1742,7 @@ public class MainFrame extends javax.swing.JFrame {
         lableManageStocks.setForeground(Color.white);
         lableManageSupplier.setForeground(Color.white);
         lableManageUser.setForeground(Color.white);
+
     }//GEN-LAST:event_lableManageInvoiceMouseClicked
 
     private void lableManageStocksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lableManageStocksMouseClicked
@@ -2115,13 +2311,13 @@ public class MainFrame extends javax.swing.JFrame {
             loadJob();
             clearJobField();
             getnextJobId();
-            
+
             int result = JOptionPane.showConfirmDialog(rootPane, "Are you want send update to customer?", "Confirmation", JOptionPane.YES_NO_OPTION);
 
-                if (result == JOptionPane.YES_OPTION) {
-                    String cusEmail = customer.getCustomerEmail(customerId);
-                    mailSender.sendMail(cusEmail, "Your Repair Item Add Successful", "Hello, \nYour Customer ID: "+customerId+"\nYour Repair Item ID: "+repairItemId+"\nScheduled date: "+date+"\nCurrent Status: "+jobStatus+"\nDescription: "+description+"\n\nThank you for choosing us.\nLanka Janaka Computer\n"+(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));  
-                }
+            if (result == JOptionPane.YES_OPTION) {
+                String cusEmail = customer.getCustomerEmail(customerId);
+                mailSender.sendMail(cusEmail, "Your Repair Item Add Successful", "Hello, \nYour Customer ID: " + customerId + "\nYour Repair Item ID: " + repairItemId + "\nScheduled date: " + date + "\nCurrent Status: " + jobStatus + "\nDescription: " + description + "\n\nThank you for choosing us.\nLanka Janaka Computer\n" + (LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
+            }
 
         }
     }//GEN-LAST:event_btnAddJobActionPerformed
@@ -2177,12 +2373,12 @@ public class MainFrame extends javax.swing.JFrame {
                 String jobStatus = (String) comboSetTatus.getSelectedItem();
                 String description = txtAreaDescription.getText();
                 manageJob.updateJob(customerId, repairItemId, date, jobStatus, description, jobId);
-                
+
                 int result2 = JOptionPane.showConfirmDialog(rootPane, "Are you want send update to customer?", "Confirmation", JOptionPane.YES_NO_OPTION);
 
                 if (result2 == JOptionPane.YES_OPTION) {
                     String cusEmail = customer.getCustomerEmail(customerId);
-                    mailSender.sendMail(cusEmail, "Regarding Your Repair Item Details Update", "Hello, \nYour Customer ID: "+customerId+"\nYour Repair Item ID: "+repairItemId+"\nRescheduled date: "+date+"\nCurrent Status: "+jobStatus+"\nDescription: "+description+"\n\nThank you for choosing us.\nLanka Janaka Computer\n"+(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));  
+                    mailSender.sendMail(cusEmail, "Regarding Your Repair Item Details Update", "Hello, \nYour Customer ID: " + customerId + "\nYour Repair Item ID: " + repairItemId + "\nRescheduled date: " + date + "\nCurrent Status: " + jobStatus + "\nDescription: " + description + "\n\nThank you for choosing us.\nLanka Janaka Computer\n" + (LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
                 }
 
                 loadJob();
@@ -2193,10 +2389,195 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEditJobActionPerformed
 
+    private void btnAddToPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddToPrintActionPerformed
+        if (invoiceFieldCheck()) {
+            int partId = Integer.parseInt(txtInvoicePartId.getText());
+            int quantity = Integer.parseInt(txtInvoiceQuanity.getText());
+            double price = Double.parseDouble(txtInvoicePrice.getText());
+            String partName = grn.getPartName(partId);
+
+            DefaultTableModel model = (DefaultTableModel) tableInvoice.getModel();
+            model.addRow(new Object[]{partId, partName, quantity, df.format(price)});
+            clearInvoiceField();
+
+        }
+    }//GEN-LAST:event_btnAddToPrintActionPerformed
+
+    private void btnPayAndPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayAndPrintActionPerformed
+
+        String sCustomerId = txtInvoiceCustomerId.getText();
+        String sJobId = txtInvoiceJobId.getText();
+
+        if (!sCustomerId.isEmpty() || !sJobId.isEmpty()) {
+            int customerId = Integer.parseInt(sCustomerId);
+            int jobId = Integer.parseInt(sJobId);
+            invoice.makeInvoice(customerId, jobId);
+
+            DefaultTableModel model = (DefaultTableModel) tableInvoice.getModel();
+            int rowCount = tableInvoice.getRowCount();
+
+            for (int i = 0; i < rowCount; i++) {
+                int partId = Integer.parseInt(tableInvoice.getValueAt(i, 0).toString());
+                int quantity = Integer.parseInt(tableInvoice.getValueAt(i, 2).toString());
+                Double price = Double.parseDouble(tableInvoice.getValueAt(i, 3).toString());
+
+                invoice.addInvoiceDetail(partId, quantity, price);
+                invoice.updateStock(partId, quantity);
+            }
+            invoice.updateJobStatus(jobId);
+            textAreaPrint.setText("");
+            clearInvoiceField();
+            txtInvoiceJobId.setText("");
+            txtInvoiceCustomerId.setText("");
+            model.setRowCount(0);
+            try {
+                textAreaPrint.print();
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(rootPane, "An error occurred: " + e, "Warning", JOptionPane.WARNING_MESSAGE);
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Customer ID, job ID are mandatiry", "warning", JOptionPane.WARNING_MESSAGE);
+        }
+
+
+    }//GEN-LAST:event_btnPayAndPrintActionPerformed
+
+    private void txtInvoicePartIdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtInvoicePartIdFocusLost
+        int partId = Integer.parseInt(txtInvoicePartId.getText());
+        lableInvoicePartName.setText(grn.getPartName(partId));
+        txtInvoicePrice.setText(invoice.getPartPrice(partId));
+    }//GEN-LAST:event_txtInvoicePartIdFocusLost
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        bill();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tableInvoiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableInvoiceMouseClicked
+
+    }//GEN-LAST:event_tableInvoiceMouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        DefaultTableModel model = (DefaultTableModel) tableInvoice.getModel();
+        int selectedRow = tableInvoice.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(rootPane, "Please select row from the table", "warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            model.removeRow(selectedRow);
+        }
+
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void txtInvoiceJobIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtInvoiceJobIdKeyTyped
+        char c = evt.getKeyChar();
+        if (Character.isLetter(c) && !evt.isAltDown()) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtInvoiceJobIdKeyTyped
+
+    private void txtInvoiceCustomerIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtInvoiceCustomerIdKeyTyped
+        char c = evt.getKeyChar();
+        if (Character.isLetter(c) && !evt.isAltDown()) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtInvoiceCustomerIdKeyTyped
+
+    private void txtInvoicePartIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtInvoicePartIdKeyTyped
+        char c = evt.getKeyChar();
+        if (Character.isLetter(c) && !evt.isAltDown()) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtInvoicePartIdKeyTyped
+
+    private void txtInvoiceQuanityKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtInvoiceQuanityKeyTyped
+        char c = evt.getKeyChar();
+        if (Character.isLetter(c) && !evt.isAltDown()) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtInvoiceQuanityKeyTyped
+
+    private void txtInvoicePriceKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtInvoicePriceKeyTyped
+        char c = evt.getKeyChar();
+        if (Character.isLetter(c) && !evt.isAltDown()) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtInvoicePriceKeyTyped
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        textAreaPrint.setText("");
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void txtInvoiceQuanityFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtInvoiceQuanityFocusLost
+        int partId = Integer.parseInt(txtInvoicePartId.getText());
+        int enteredQuantity = Integer.parseInt(txtInvoiceQuanity.getText());
+        int quantity = invoice.stockQuantityCheck(partId);
+        if (enteredQuantity <= quantity) {
+
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "There is no quantity in stock\nCurrent stock quantity is: "+quantity,"warning",JOptionPane.WARNING_MESSAGE);
+            clearInvoiceField();
+        }
+    }//GEN-LAST:event_txtInvoiceQuanityFocusLost
+
+    private void txtInvoiceJobIdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtInvoiceJobIdFocusLost
+        int jobId = Integer.parseInt(txtInvoiceJobId.getText());
+        String customerId = String.valueOf(invoice.verifyCustomerId(jobId));
+        txtInvoiceCustomerId.setText(customerId);
+    }//GEN-LAST:event_txtInvoiceJobIdFocusLost
+
     public String getdate() {
         Date d = new Date();
         String dd = sdf.format(d);
         return dd;
+    }
+
+    public void bill() {
+        double subtotal = 0;
+        textAreaPrint.setText(textAreaPrint.getText() + "========================================" + "\n" + "\t" + "    LANKA JANAKA COMPUTER" + "\n\n" + "Contact Number- 0773315250" + "\n" + "Email- janakalanka97@gmai.com" + "\n" + "========================================" + "\n");
+        textAreaPrint.setText(textAreaPrint.getText() + "\nPart ID" + "\t" + "Name" + "\t\t" + "Quantity" + "\t" + "Price");
+        DefaultTableModel model = (DefaultTableModel) tableInvoice.getModel();
+        for (int i = 0; i < tableInvoice.getRowCount(); i++) {
+            String id = tableInvoice.getValueAt(i, 0).toString();
+            String name = tableInvoice.getValueAt(i, 1).toString();
+            int quantity = Integer.parseInt(tableInvoice.getValueAt(i, 2).toString());
+            double price = Double.parseDouble(tableInvoice.getValueAt(i, 3).toString());
+
+            try {
+                subtotal += (price * quantity);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(rootPane, "Error occured on calculating subtotal1", "warning", JOptionPane.WARNING_MESSAGE);
+            }
+
+            String doubleDecimalPrice = df.format(price);
+            textAreaPrint.setText(textAreaPrint.getText() + "\n" + id + "\t" + name + "\t" + quantity + "\t" + doubleDecimalPrice + "\n");
+
+        }
+
+        String service = JOptionPane.showInputDialog("What is the Addition fee ?");
+        String serviceCharge = null;
+
+        if (service != null) {
+            serviceCharge = JOptionPane.showInputDialog("How much for service ?\n ex: 1800");
+            if (serviceCharge != null) {
+                txtAreaDescription.setText(textAreaPrint.getText() + service + "\t\t :" + serviceCharge + "\n\n");
+            }
+        }
+        if(serviceCharge != null){
+            try {
+            int newServiceCharge = 0;
+            newServiceCharge = Integer.parseInt(serviceCharge);
+            subtotal += newServiceCharge;
+        } catch (NumberFormatException e) {
+
+        }
+        }
+        
+
+        String doubleDesimalSubTotal = df.format(subtotal);
+        textAreaPrint.setText(textAreaPrint.getText() + "\n\n\t\t\t" + "     SubTotal:" + doubleDesimalSubTotal + "\n");
+        textAreaPrint.setText(textAreaPrint.getText() + "\n========================================" + "\n" + "\t            Thank you Come Again\n" + "\tSoftware Developed by AIBT SE Batch 01");
+
     }
 
     private void getnextJobId() {
@@ -2330,6 +2711,13 @@ public class MainFrame extends javax.swing.JFrame {
         txtUserPhoneNo.setText("");
     }
 
+    public void clearInvoiceField() {
+        txtInvoicePartId.setText("");
+        lableInvoicePartName.setText("");
+        txtInvoiceQuanity.setText("");
+        txtInvoicePrice.setText("");
+    }
+
     public void clearCustomerFields() {
         lableCustomerId.setText("");
         txtCustomerName.setText("");
@@ -2403,6 +2791,22 @@ public class MainFrame extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(rootPane, "Email address is invalid", "Warning", JOptionPane.WARNING_MESSAGE);
                 txtUserEmail.setText("");
             }
+        }
+        return false;
+    }
+
+    public boolean invoiceFieldCheck() {
+        String jobId = txtInvoiceJobId.getText();
+        String customerId = txtInvoiceCustomerId.getText();
+        String partId = txtInvoicePartId.getText();
+        String partName = lableInvoicePartName.getText();
+        String quantity = txtInvoiceQuanity.getText();
+        String price = txtInvoicePrice.getText();
+
+        if (jobId.isEmpty() || customerId.isEmpty() || partId.isEmpty() || partName.isEmpty() || quantity.isEmpty() || price.isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "All fields are mandatory", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            return true;
         }
         return false;
     }
@@ -2537,6 +2941,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnAddPart;
     private javax.swing.JButton btnAddRepairItem;
     private javax.swing.JButton btnAddSupplier;
+    private javax.swing.JButton btnAddToPrint;
     private javax.swing.JButton btnAddUser;
     private javax.swing.JButton btnClearField;
     private javax.swing.JButton btnClearManageStockPartField;
@@ -2549,6 +2954,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnGRN;
     private javax.swing.JButton btnJobFieldClear;
     private javax.swing.JButton btnPartDelete;
+    private javax.swing.JButton btnPayAndPrint;
     private javax.swing.JButton btnRepairItemDelete;
     private javax.swing.JButton btnRepairItemFieldsClear;
     private javax.swing.JButton btnSupplierClearField;
@@ -2562,6 +2968,10 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboSetTatus;
     private com.toedter.calendar.JDateChooser dateRepairItemEntryDate;
     private com.toedter.calendar.JDateChooser dateScheduleDate;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2591,6 +3001,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
@@ -2598,6 +3009,12 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -2614,15 +3031,18 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelManageUser;
     private javax.swing.JPanel jPanelStock;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lableCustomerId;
     private javax.swing.JLabel lableDate;
+    private javax.swing.JLabel lableInvoicePartName;
     private javax.swing.JLabel lableJobId;
     private javax.swing.JLabel lableLogout;
     private javax.swing.JLabel lableManageCustomer;
@@ -2637,16 +3057,23 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lableSupplierId;
     private javax.swing.JLabel lableUserId;
     private javax.swing.JTable tableCustomer;
+    private javax.swing.JTable tableInvoice;
     private javax.swing.JTable tableJob;
     private javax.swing.JTable tablePart;
     private javax.swing.JTable tableRepairItem;
     private javax.swing.JTable tableSupplier;
     private javax.swing.JTable tableUser;
+    private javax.swing.JTextArea textAreaPrint;
     private javax.swing.JTextArea txtAreaDescription;
     private javax.swing.JTextField txtCustomerEmail;
     private javax.swing.JTextField txtCustomerName;
     private javax.swing.JTextField txtCustomerPhoneNo;
     private javax.swing.JTextField txtCustomerSearch;
+    private javax.swing.JTextField txtInvoiceCustomerId;
+    private javax.swing.JTextField txtInvoiceJobId;
+    private javax.swing.JTextField txtInvoicePartId;
+    private javax.swing.JTextField txtInvoicePrice;
+    private javax.swing.JTextField txtInvoiceQuanity;
     private javax.swing.JTextField txtPartName;
     private javax.swing.JTextField txtPartPrice;
     private javax.swing.JTextField txtPartQuantity;

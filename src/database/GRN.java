@@ -44,6 +44,7 @@ public class GRN {
     }
     
     
+ 
     public ResultSet readGRNHistory() {
         String sql = "SELECT g.GRN_id, s.name, gd.quantity, gd.price, g.date FROM GRN g JOIN GRN_detail gd ON g.GRN_id = gd.GRN_id JOIN stock s ON gd.part_id = s.part_id;";
         try {
@@ -88,7 +89,7 @@ public class GRN {
             if (generatedKeys.next()) {
                 grnID = generatedKeys.getInt(1);
             } else {
-                JOptionPane.showMessageDialog(null, "Failed to retrieve generated order ID", "Warning", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Failed to retrieve generated GRN ID", "Warning", JOptionPane.WARNING_MESSAGE);
             }
         } catch (SQLException e) {
             try {

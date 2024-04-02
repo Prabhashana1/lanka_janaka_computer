@@ -70,7 +70,7 @@ public class User {
         String sql = "DELETE FROM user WHERE user_id = ?";
 
         try {
-            ps = con.prepareCall(sql);
+            ps = con.prepareStatement(sql);
             ps.setInt(1, userId);
             int rowsDeleted = ps.executeUpdate();
             if (rowsDeleted > 0) {
